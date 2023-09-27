@@ -6,7 +6,7 @@ public class Graph {
 
     List<Vertex> vertices;
     List<Edge> edges;
-    int[][] adjacencyMatrix; // Matriz de adjacência
+    int[][] adjacencyMatrix;
 
     public Graph(List<Vertex> vertices, List<Edge> edges) {
         this.vertices = vertices;
@@ -86,14 +86,12 @@ public class Graph {
                 return false;
             }
         }
-
         return true;
     }
 
     public List<Vertex> getUnreachableVertices(Vertex sourceVertex) {
 
         int initialPosition = sourceVertex.getId() - 1;
-
         List<Vertex> unreachableVertices = new ArrayList<>();
 
         for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
@@ -103,7 +101,6 @@ public class Graph {
                 }
             }
         }
-
         return unreachableVertices;
     }
 
