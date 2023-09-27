@@ -6,10 +6,24 @@ public class Graph {
 
     List<Vertex> vertices;
     List<Edge> edges;
+    int[][] adjacencyMatrix; // Matriz de adjacência
 
     public Graph(List<Vertex> vertices, List<Edge> edges) {
         this.vertices = vertices;
         this.edges = edges;
+        this.adjacencyMatrix = new int[vertices.size()][vertices.size()];
+
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                adjacencyMatrix[i][j] = 0;
+            }
+        }
+
+        for (Edge edge : edges) {
+            int originIndex = vertices.indexOf(edge.getOrigin());
+            int destinyIndex = vertices.indexOf(edge.getDestiny());
+            adjacencyMatrix[originIndex][destinyIndex] = 1;
+        }
     }
 
     public List<Vertex> getVertices() {
@@ -28,10 +42,22 @@ public class Graph {
         this.edges = edges;
     }
 
+    public void printAdjacencyMatrix() {
+        int n = vertices.size();
+
+        System.out.println("Matriz de Adjacência:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(adjacencyMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
     public boolean isConnected() {
         List<Vertex> allVertices = new ArrayList<>(vertices);
 
-        // Verificar a conectividade a partir de cada vértice
         for (int i = 0; i < allVertices.size(); i++) {
 
             Set<Vertex> visited = new HashSet<>();
@@ -65,32 +91,19 @@ public class Graph {
     }
 
     public List<Vertex> getUnreachableVertices(Vertex sourceVertex) {
-        Set<Vertex> visited = new HashSet<>();
-        Queue<Vertex> queue = new LinkedList<>();
 
-        // Inicie a busca em largura a partir do vértice de origem
-        queue.offer(sourceVertex);
-        visited.add(sourceVertex);
+        int initialPosition = sourceVertex.getId() - 1;
 
-        while (!queue.isEmpty()) {
-            Vertex currentVertex = queue.poll();
+        List<Vertex> unreachableVertices = new ArrayList<>();
 
-            for (Edge edge : edges) {
-                if (edge.getOrigin().equals(currentVertex) && !visited.contains(edge.getDestiny())) {
-                    visited.add(edge.getDestiny());
-                    queue.offer(edge.getDestiny());
+        for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
+            if (!vertices.get(i).equals(sourceVertex)) {
+                if (adjacencyMatrix[initialPosition][i] == 0) {
+                    unreachableVertices.add(vertices.get(i));
                 }
             }
         }
 
-        // Todas as cidades visitadas agora estão em visited
-        // As cidades não alcançadas estão na diferença entre todas as cidades e as visitadas
-        List<Vertex> unreachableVertices = new ArrayList<>();
-        for (Vertex vertex : vertices) {
-            if (!visited.contains(vertex) && !vertex.equals(sourceVertex)) {
-                unreachableVertices.add(vertex);
-            }
-        }
         return unreachableVertices;
     }
 

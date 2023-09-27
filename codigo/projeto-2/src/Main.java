@@ -34,7 +34,6 @@ public class Main {
                             String destinationCity = connectionParts[0];
                             int distance = Integer.parseInt(connectionParts[1].replaceAll("[^\\d]", ""));
                             Vertex destiny = vertexMap.computeIfAbsent(destinationCity, Vertex::new);
-                            vertices.add(destiny);
                             edges.add(new Edge(origin, destiny, distance));
                         }
                     }
@@ -45,13 +44,10 @@ public class Main {
         }
 
         Graph graph = new Graph(vertices, edges);
+        List<Vertex> vertexList = graph.getUnreachableVertices(vertices.get(10));
 
-        Vertex sourceVertex = vertices.get(0);
-        List<Vertex> unreachableVertices = graph.getUnreachableVertices(sourceVertex);
-
-        System.out.println("Vértices não alcançáveis a partir de " + sourceVertex.getCityName() + ":");
-        for (Vertex city : unreachableVertices) {
-            System.out.println(city.getCityName());
+        for (Vertex vertex : vertexList) {
+            System.out.println(vertex.getCityName());
         }
     }
 }
