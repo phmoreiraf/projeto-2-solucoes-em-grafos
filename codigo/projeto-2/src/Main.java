@@ -1,4 +1,5 @@
 import entities.Edge;
+import entities.Graph;
 import entities.Vertex;
 
 import java.io.BufferedReader;
@@ -43,10 +44,14 @@ public class Main {
             e.printStackTrace();
         }
 
-        for (Edge edge : edges) {
-            System.out.println("Origem: " + edge.getOrigin().getCityName() +
-                    ", Destino: " + edge.getDestiny().getCityName() +
-                    ", Distância: " + edge.getDistance());
+        Graph graph = new Graph(vertices, edges);
+
+        Vertex sourceVertex = vertices.get(0);
+        List<Vertex> unreachableVertices = graph.getUnreachableVertices(sourceVertex);
+
+        System.out.println("Vértices não alcançáveis a partir de " + sourceVertex.getCityName() + ":");
+        for (Vertex city : unreachableVertices) {
+            System.out.println(city.getCityName());
         }
     }
 }
