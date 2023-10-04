@@ -1,4 +1,4 @@
-package entities;
+package br.pucminas.solucoesemgrafos.entities;
 
 import java.util.*;
 

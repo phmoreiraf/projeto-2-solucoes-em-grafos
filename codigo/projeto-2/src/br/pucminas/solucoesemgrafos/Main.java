@@ -1,6 +1,4 @@
-import entities.Edge;
-import entities.Graph;
-import entities.Vertex;
+package br.pucminas.solucoesemgrafos;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,6 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import br.pucminas.solucoesemgrafos.entities.Edge;
+import br.pucminas.solucoesemgrafos.entities.Graph;
+import br.pucminas.solucoesemgrafos.entities.Vertex;
 
 public class Main {
     public static void main(String[] args) throws IOException {
