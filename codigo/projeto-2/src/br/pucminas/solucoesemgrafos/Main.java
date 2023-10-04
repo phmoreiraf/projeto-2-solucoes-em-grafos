@@ -51,5 +51,19 @@ public class Main {
         for (Vertex vertex : vertexList) {
             System.out.println(vertex.getCityName());
         }
+        
+        vertexList = graph.getReachableVertices(vertices.get(0));
+
+        System.out.println("\nRecomendacao:");
+        for (Vertex vertex : vertexList) {
+            System.out.println(vertex.getCityName());
+        }
+        
+        List<String> recommendations = graph.visitAllRoadsAndCities(vertices.get(0));
+
+		for (String recommendation : recommendations) {
+		    System.out.println(recommendation);
+		}
+        
     }
 }

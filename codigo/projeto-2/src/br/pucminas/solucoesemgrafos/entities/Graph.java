@@ -103,5 +103,45 @@ public class Graph {
         }
         return unreachableVertices;
     }
+    
+    public List<Vertex> getReachableVertices(Vertex sourceVertex) {
+
+        int initialPosition = sourceVertex.getId() - 1;
+        List<Vertex> reachableVertices = new ArrayList<>();
+
+        for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
+            if (!vertices.get(i).equals(sourceVertex)) {
+                if (adjacencyMatrix[initialPosition][i] == 1) {
+                    reachableVertices.add(vertices.get(i));
+                }
+            }
+        }
+        return reachableVertices;
+    }
+    
+	private void DFS(int initialPosition, Set<Integer> visited, List<String> recommendations) {
+        if (visited.contains(initialPosition)) 
+        	return;
+        
+        visited.add(initialPosition);
+        recommendations.add("\nVisite a cidade: " + vertices.get(initialPosition).getCityName());
+
+        for (int i = 0; i < vertices.size(); i++) {
+            if (adjacencyMatrix[initialPosition][i] == 1 && !visited.contains(i)) {
+                recommendations.add("Viaje pela estrada de " + vertices.get(initialPosition).getCityName() + " para " + vertices.get(i).getCityName());
+                DFS(i, visited, recommendations);
+            }
+        }
+    }
+
+    public List<String> visitAllRoadsAndCities(Vertex sourceVertex) {
+        List<String> recommendations = new ArrayList<>();
+        Set<Integer> visited = new HashSet<>();
+        int sourceVertexIndex = vertices.indexOf(sourceVertex);
+        
+        DFS(sourceVertexIndex, visited, recommendations);
+
+        return recommendations;
+    }
 
 }
