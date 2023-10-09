@@ -18,21 +18,30 @@ public class Main {
         Map<String, Vertex> vertexMap = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
             String line;
+
             while ((line = br.readLine()) != null) {
+
                 String[] parts = line.split(": ");
+
                 if (parts.length >= 2) {
+
                     String cityName = parts[0];
                     Vertex origin = vertexMap.computeIfAbsent(cityName, Vertex::new);
                     vertices.add(origin);
-
                     String[] connections = parts[1].split(", ");
+
                     for (String connection : connections) {
+
                         String[] connectionParts = connection.split(" \\(");
+
                         if (connectionParts.length == 2) {
+
                             String destinationCity = connectionParts[0];
                             int distance = Integer.parseInt(connectionParts[1].replaceAll("[^\\d]", ""));
                             Vertex destiny = vertexMap.computeIfAbsent(destinationCity, Vertex::new);
+
                             edges.add(new Edge(origin, destiny, distance));
                         }
                     }

@@ -2,8 +2,8 @@ package entities;
 
 public class Vertex {
 
-    private int id;
-    private static int NEXT_ID = 1;
+    private final int id;
+    private static int NEXT_ID = 0;
     private String cityName;
 
     public Vertex(String cityName) {
@@ -11,12 +11,13 @@ public class Vertex {
         this.cityName = cityName;
     }
 
-    public int getId() {
-        return id;
+    public Vertex() {
+        this.id = NEXT_ID++;
+        this.cityName = null;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public String getCityName() {

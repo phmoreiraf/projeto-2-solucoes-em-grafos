@@ -12,6 +12,11 @@ public class Edge {
         this.distance = distance;
     }
 
+    public Edge() {
+        this.origin = this.destiny = null;
+        this.distance = 0;
+    }
+
     public Vertex getOrigin() {
         return origin;
     }
