@@ -2,10 +2,13 @@ package entities;
 
 public class Vertex {
 
-    private final int id;
     private static int NEXT_ID = 0;
+    private final int id;
     private String cityName;
 
+    /**
+     * @param cityName nome da cidade do vertice
+     */
     public Vertex(String cityName) {
         this.id = NEXT_ID++;
         this.cityName = cityName;
@@ -24,6 +27,9 @@ public class Vertex {
         return cityName;
     }
 
+    /**
+     * @param cityName nova da cidade do vertice
+     */
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }

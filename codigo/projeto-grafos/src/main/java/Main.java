@@ -17,6 +17,9 @@ public class Main {
         List<Edge> edges = new ArrayList<>();
         Map<String, Vertex> vertexMap = new HashMap<>();
 
+        /*I - Preenche informacoes do grafo a partir do arquivo graph.txt*/
+        /*II - Cria e preenche vertices*/
+        /*III - Cria  e preenche arestas*/
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
             String line;

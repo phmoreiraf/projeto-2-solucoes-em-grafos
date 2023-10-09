@@ -8,17 +8,21 @@ public class Graph {
     List<Edge> edges;
     int[][] adjacencyMatrix;
 
+    /**
+     * @param vertices vertices do grafo
+     * @param edges    arestas do grafo
+     */
     public Graph(List<Vertex> vertices, List<Edge> edges) {
         this.vertices = vertices;
         this.edges = edges;
         this.adjacencyMatrix = new int[vertices.size()][vertices.size()];
-
+        /*Cria matriz de adjacencia vazia*/
         for (int i = 0; i < vertices.size(); i++) {
             for (int j = 0; j < vertices.size(); j++) {
                 adjacencyMatrix[i][j] = 0;
             }
         }
-
+        /*Preenche matriz de adjacencia*/
         for (Edge edge : edges) {
             int originIndex = vertices.indexOf(edge.getOrigin());
             int destinyIndex = vertices.indexOf(edge.getDestiny());
@@ -30,6 +34,9 @@ public class Graph {
         return vertices;
     }
 
+    /**
+     * @param vertices vertices do grafo
+     */
     public void setVertices(List<Vertex> vertices) {
         this.vertices = vertices;
     }
@@ -38,10 +45,16 @@ public class Graph {
         return edges;
     }
 
+    /**
+     * @param edges arestas do grafo
+     */
     public void setEdges(List<Edge> edges) {
         this.edges = edges;
     }
 
+    /**
+     * Imprime a matriz de adjacencia
+     */
     public void printAdjacencyMatrix() {
         int n = vertices.size();
 
@@ -54,7 +67,11 @@ public class Graph {
         }
     }
 
-
+    /**
+     * Busca em largura - Questao (a)
+     *
+     * @return boolean indicando se grafo e conexo ou nao
+     */
     public boolean isConnected() {
         List<Vertex> allVertices = new ArrayList<>(vertices);
 
@@ -89,6 +106,12 @@ public class Graph {
         return true;
     }
 
+    /**
+     * Lista as cidades que nao sao alcancadas por uma cidade de referencia (sourceVertex) - Questao (b)
+     *
+     * @param sourceVertex vertice de referencia
+     * @return lista de vertices que nao sao alcancados pelo vertice de referencia
+     */
     public List<Vertex> getUnreachableVertices(Vertex sourceVertex) {
 
         int initialPosition = sourceVertex.getId() - 1;
@@ -103,7 +126,13 @@ public class Graph {
         }
         return unreachableVertices;
     }
-    
+
+    /**
+     * Lista as cidades que sao alcancadas por uma cidade de referencia (sourceVertex)
+     *
+     * @param sourceVertex vertice de referencia
+     * @return lista de vertices que sao alcancados pelo vertice de referencia
+     */
     public List<Vertex> getReachableVertices(Vertex sourceVertex) {
 
         int initialPosition = sourceVertex.getId() - 1;
@@ -118,11 +147,18 @@ public class Graph {
         }
         return reachableVertices;
     }
-    
-	private void DFS(int initialPosition, Set<Integer> visited, List<String> recommendations) {
-        if (visited.contains(initialPosition)) 
-        	return;
-        
+
+    /**
+     * Busca em profundidade
+     *
+     * @param initialPosition posicao inicial de busca
+     * @param visited         marcacao em cada vertice para que a busca nao re-visite um vertice marcado
+     * @param recommendations lista de cidades recomendadas
+     */
+    private void DFS(int initialPosition, Set<Integer> visited, List<String> recommendations) {
+        if (visited.contains(initialPosition))
+            return;
+
         visited.add(initialPosition);
         recommendations.add("\nVisite a cidade: " + vertices.get(initialPosition).getCityName());
 
@@ -134,11 +170,17 @@ public class Graph {
         }
     }
 
+    /**
+     * Fornece recomendacoes de cidades para visitar, a partir de um vertice - Questao (c)
+     *
+     * @param sourceVertex vertice de referencia
+     * @return lista de cidades recomendadas
+     */
     public List<String> visitAllRoadsAndCities(Vertex sourceVertex) {
         List<String> recommendations = new ArrayList<>();
         Set<Integer> visited = new HashSet<>();
         int sourceVertexIndex = vertices.indexOf(sourceVertex);
-        
+
         DFS(sourceVertexIndex, visited, recommendations);
 
         return recommendations;

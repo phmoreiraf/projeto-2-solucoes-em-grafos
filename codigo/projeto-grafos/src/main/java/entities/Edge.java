@@ -6,6 +6,11 @@ public class Edge {
     private Vertex destiny;
     private int distance;
 
+    /**
+     * @param origin   vertice de origem
+     * @param destiny  vertice de destino
+     * @param distance distancia entre vertices (peso)
+     */
     public Edge(Vertex origin, Vertex destiny, int distance) {
         this.origin = origin;
         this.destiny = destiny;
@@ -21,6 +26,9 @@ public class Edge {
         return origin;
     }
 
+    /**
+     * @param origin vertice de origem
+     */
     public void setOrigin(Vertex origin) {
         this.origin = origin;
     }
@@ -29,6 +37,9 @@ public class Edge {
         return destiny;
     }
 
+    /**
+     * @param destiny vertice de destino
+     */
     public void setDestiny(Vertex destiny) {
         this.destiny = destiny;
     }
@@ -37,6 +48,9 @@ public class Edge {
         return distance;
     }
 
+    /**
+     * @param distance distancia entre vertices
+     */
     public void setDistance(int distance) {
         this.distance = distance;
     }

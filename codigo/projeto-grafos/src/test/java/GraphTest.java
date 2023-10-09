@@ -27,7 +27,7 @@ public class GraphTest {
         vertices.add(v2);
         vertices.add(v3);
 
-        /*Grafo conexo, 3 vertices e 2 aresta*/
+        /*Grafo conexo, 3 vertices e 2 arestas*/
         edges.add(new Edge(v1, v2, 120));
         edges.add(new Edge(v2, v3, 200));
         edges.add(new Edge(v3, v1, 200));
