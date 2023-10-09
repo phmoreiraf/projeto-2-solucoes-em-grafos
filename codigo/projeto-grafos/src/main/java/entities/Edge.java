@@ -1,4 +1,4 @@
-package br.pucminas.solucoesemgrafos.entities;
+package entities;
 
 public class Edge {
 
