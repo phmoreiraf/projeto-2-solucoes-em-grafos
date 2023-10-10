@@ -153,20 +153,23 @@ public class Graph {
      *
      * @param initialPosition posicao inicial de busca
      * @param visited         marcacao em cada vertice para que a busca nao re-visite um vertice marcado
-     * @param recommendations lista de cidades recomendadas
+     * @param currentRoute    rota atual que está sendo explorada
+     * @param allRoutes 	  lista de rotas recomendadas
      */
-    private void DFS(int initialPosition, Set<Integer> visited, List<String> recommendations) {
-        if (visited.contains(initialPosition))
-            return;
-
+    private void DFS(int initialPosition, Set<Integer> visited, Route currentRoute, List<Route> allRoutes) {
         visited.add(initialPosition);
-        recommendations.add("\nVisite a cidade: " + vertices.get(initialPosition).getCityName());
+        currentRoute.addVertex(vertices.get(initialPosition));
 
+        boolean hasUnvisitedNeighbor = false;
         for (int i = 0; i < vertices.size(); i++) {
             if (adjacencyMatrix[initialPosition][i] == 1 && !visited.contains(i)) {
-                recommendations.add("Viaje pela estrada de " + vertices.get(initialPosition).getCityName() + " para " + vertices.get(i).getCityName());
-                DFS(i, visited, recommendations);
+                hasUnvisitedNeighbor = true;
+                DFS(i, new HashSet<>(visited), new Route(currentRoute), allRoutes);
             }
+        }
+
+        if (!hasUnvisitedNeighbor) {
+            allRoutes.add(currentRoute);
         }
     }
 
@@ -174,16 +177,15 @@ public class Graph {
      * Fornece recomendacoes de cidades para visitar, a partir de um vertice - Questao (c)
      *
      * @param sourceVertex vertice de referencia
-     * @return lista de cidades recomendadas
+     * @return lista de rotas recomendadas
      */
-    public List<String> visitAllRoadsAndCities(Vertex sourceVertex) {
-        List<String> recommendations = new ArrayList<>();
+    public List<Route> visitAllRoadsAndCities(Vertex sourceVertex) {
+    	List<Route> allRoutes = new ArrayList<>();
         Set<Integer> visited = new HashSet<>();
         int sourceVertexIndex = vertices.indexOf(sourceVertex);
-
-        DFS(sourceVertexIndex, visited, recommendations);
-
-        return recommendations;
+        
+        DFS(sourceVertexIndex, visited, new Route(), allRoutes);
+        return allRoutes;
     }
 
 }
