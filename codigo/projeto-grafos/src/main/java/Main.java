@@ -1,6 +1,3 @@
-import entities.Edge;
-import entities.Vertex;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,6 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import entities.Edge;
+import entities.Graph;
+import entities.Route;
+import entities.Vertex;
 
 public class Main {
     public static void main(String[] args) {
@@ -52,6 +54,13 @@ public class Main {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        
+        Graph graph = new Graph(vertices, edges);
+        List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(0));
+
+        for (Route route : allRoutes) {
+            System.out.println(route);
         }
     }
 }
