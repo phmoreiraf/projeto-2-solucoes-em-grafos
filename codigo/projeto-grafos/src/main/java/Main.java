@@ -59,8 +59,15 @@ public class Main {
         Graph graph = new Graph(vertices, edges);
         List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(0));
 
-        for (Route route : allRoutes) {
-            System.out.println(route);
-        }
+        /*todo: remover a propria cidade da matriz de adjacencia i == j*/
+        graph.printAdjacencyMatrix();
+
+        System.out.println("\nLetra A - Existe estrada de qualquer cidade para qualquer cidade?");
+        System.out.println(graph.isConnected() ? "Sim" : "Não");
+        System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
+        List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(1));
+        unreachableTowns.forEach((vertex) -> System.out.printf(vertex.getCityName() + "\n"));
+        System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
+        allRoutes.forEach(System.out::println);
     }
 }
