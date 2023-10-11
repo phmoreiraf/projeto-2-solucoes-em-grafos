@@ -77,9 +77,9 @@ public class Main {
                     List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(0));
                     shortestPathList.forEach(vertex -> {
                         System.out.println();
-                        System.out.println("Origem " + vertex.getSourceVertex().getCityName());
-                        System.out.println("Destino " + vertex.getDestinationVertex().getCityName());
-                        System.out.println("Distância " + vertex.getDistance());
+                        System.out.println("Origem =>" + vertex.getSourceVertex().getCityName());
+                        System.out.println("Destino =>" + vertex.getDestinationVertex().getCityName());
+                        System.out.println("Distância =>" + vertex.getDistance());
                     });
                 }
                 default -> throw new Exception("Opcao invalida");
