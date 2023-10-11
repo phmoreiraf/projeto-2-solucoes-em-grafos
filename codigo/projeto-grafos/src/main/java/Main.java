@@ -61,7 +61,7 @@ public class Main {
 
         System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
         List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(2));
-        unreachableTowns.forEach((vertex) -> System.out.printf(vertex.getCityName() + "\n"));
+        unreachableTowns.forEach(vertex -> System.out.printf(vertex.getCityName() + "\n"));
 
         System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
         allRoutes.forEach(System.out::println);
