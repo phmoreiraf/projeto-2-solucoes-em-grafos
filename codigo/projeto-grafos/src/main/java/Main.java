@@ -3,14 +3,12 @@ import entities.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
+        Scanner scanner = new Scanner(System.in);
         String fileName = "graph.txt";
         List<Vertex> vertices = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
@@ -56,23 +54,38 @@ public class Main {
         Graph graph = new Graph(vertices, edges);
         List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(0));
 
-        System.out.println("\nLetra A - Existe estrada de qualquer cidade para qualquer cidade?");
-        System.out.println(graph.isConnected() ? "Sim" : "Não");
+        System.out.println("Selecione qual questão deseja verificar: (A, B, C, D / S para sair) ");
+        Character op = scanner.nextLine().toLowerCase().charAt(0);
 
-        System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
-        List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(2));
-        unreachableTowns.forEach(vertex -> System.out.printf(vertex.getCityName() + "\n"));
-
-        System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
-        allRoutes.forEach(System.out::println);
-
-        System.out.println("\nLetra D - Menores distâncias possíveis a partir de determinada cidade: (Ex.: Cidade do Cabo)");
-        List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(0));
-        shortestPathList.forEach(vertex -> {
-            System.out.println();
-            System.out.println("Origem " + vertex.getSourceVertex().getCityName());
-            System.out.println("Destino " + vertex.getDestinationVertex().getCityName());
-            System.out.println("Distância " + vertex.getDistance());
-        });
+        while (!op.equals('s')) {
+            switch (op) {
+                case 'a' -> {
+                    System.out.println("\nLetra A - Existe estrada de qualquer cidade para qualquer cidade?");
+                    System.out.println(graph.isConnected() ? "Sim" : "Não");
+                }
+                case 'b' -> {
+                    System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
+                    List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(2));
+                    unreachableTowns.forEach(vertex -> System.out.printf(vertex.getCityName() + "\n"));
+                }
+                case 'c' -> {
+                    System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
+                    allRoutes.forEach(System.out::println);
+                }
+                case 'd' -> {
+                    System.out.println("\nLetra D - Menores distâncias possíveis a partir de determinada cidade: (Ex.: Cidade do Cabo)");
+                    List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(0));
+                    shortestPathList.forEach(vertex -> {
+                        System.out.println();
+                        System.out.println("Origem " + vertex.getSourceVertex().getCityName());
+                        System.out.println("Destino " + vertex.getDestinationVertex().getCityName());
+                        System.out.println("Distância " + vertex.getDistance());
+                    });
+                }
+                default -> throw new Exception("Opcao invalida");
+            }
+            System.out.println("\nSelecione qual questão deseja verificar: ('A', 'B', 'C', 'D' / 'S' para sair) ");
+            op = scanner.nextLine().toLowerCase().charAt(0);
+        }
     }
 }
