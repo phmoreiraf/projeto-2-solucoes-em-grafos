@@ -16,13 +16,13 @@ public class Graph {
         this.vertices = vertices;
         this.edges = edges;
         this.adjacencyMatrix = new int[vertices.size()][vertices.size()];
-        /*Cria matriz de adjacencia vazia*/
+        /* Cria matriz de adjacencia vazia */
         for (int i = 0; i < vertices.size(); i++) {
             for (int j = 0; j < vertices.size(); j++) {
                 adjacencyMatrix[i][j] = 0;
             }
         }
-        /*Preenche matriz de adjacencia*/
+        /* Preenche matriz de adjacencia */
         for (Edge edge : edges) {
             int originIndex = vertices.indexOf(edge.getOrigin());
             int destinyIndex = vertices.indexOf(edge.getDestiny());
@@ -107,7 +107,8 @@ public class Graph {
     }
 
     /**
-     * Lista as cidades que nao sao alcancadas por uma cidade de referencia (sourceVertex) - Questao (b)
+     * Lista as cidades que nao sao alcancadas por uma cidade de referencia
+     * (sourceVertex) - Questao (b)
      *
      * @param sourceVertex vertice de referencia
      * @return lista de vertices que nao sao alcancados pelo vertice de referencia
@@ -128,7 +129,8 @@ public class Graph {
     }
 
     /**
-     * Lista as cidades que sao alcancadas por uma cidade de referencia (sourceVertex)
+     * Lista as cidades que sao alcancadas por uma cidade de referencia
+     * (sourceVertex)
      *
      * @param sourceVertex vertice de referencia
      * @return lista de vertices que sao alcancados pelo vertice de referencia
@@ -152,9 +154,10 @@ public class Graph {
      * Busca em profundidade
      *
      * @param initialPosition posicao inicial de busca
-     * @param visited         marcacao em cada vertice para que a busca nao re-visite um vertice marcado
+     * @param visited         marcacao em cada vertice para que a busca nao
+     *                        re-visite um vertice marcado
      * @param currentRoute    rota atual que está sendo explorada
-     * @param allRoutes 	  lista de rotas recomendadas
+     * @param allRoutes       lista de rotas recomendadas
      */
     private void DFS(int initialPosition, Set<Integer> visited, Route currentRoute, List<Route> allRoutes) {
         visited.add(initialPosition);
@@ -174,18 +177,68 @@ public class Graph {
     }
 
     /**
-     * Fornece recomendacoes de cidades para visitar, a partir de um vertice - Questao (c)
+     * Fornece recomendacoes de cidades para visitar, a partir de um vertice -
+     * Questao (c)
      *
      * @param sourceVertex vertice de referencia
      * @return lista de rotas recomendadas
      */
     public List<Route> visitAllRoadsAndCities(Vertex sourceVertex) {
-    	List<Route> allRoutes = new ArrayList<>();
+        List<Route> allRoutes = new ArrayList<>();
         Set<Integer> visited = new HashSet<>();
         int sourceVertexIndex = vertices.indexOf(sourceVertex);
-        
+
         DFS(sourceVertexIndex, visited, new Route(), allRoutes);
         return allRoutes;
     }
 
+    /**
+     * Encontra os caminhos mais curtos de um vértice de origem para todos os outros vértices usando o algoritmo de Dijkstra.
+     * Questão (d)
+     * 
+     * @param sourceVertex Vértice de origem para qual encontrar o menor caminho.
+     * @return Lista de objetos ShortestPath com informações.
+     */
+    public List<ShortestPath> shortestPathsFromSource(Vertex sourceVertex) {
+        int sourceVertexIndex = vertices.indexOf(sourceVertex);
+        int numVertices = vertices.size();
+
+        // Inicializa a array de distância e vértices com prioridade para serem explorados.
+        int[] distance = new int[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            distance[i] = Integer.MAX_VALUE;
+        }
+        distance[sourceVertexIndex] = 0;
+
+        // Cria uma lista para armazenar informaçôes do caminho mais curto para cada vértice.
+        List<ShortestPath> shortestPaths = new ArrayList<>();
+
+        // Prioriza a fila para selecionar o vértice com a menor distância.
+        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>(
+                (v1, v2) -> distance[vertices.indexOf(v1)] - distance[vertices.indexOf(v2)]);
+        priorityQueue.add(sourceVertex);
+
+        while (!priorityQueue.isEmpty()) {
+            Vertex currentVertex = priorityQueue.poll();
+            int currentIndex = vertices.indexOf(currentVertex);
+
+            for (Edge edge : edges) {
+                if (edge.getOrigin().equals(currentVertex)) {
+                    Vertex neighbor = edge.getDestiny();
+                    int neighborIndex = vertices.indexOf(neighbor);
+                    int newDistance = distance[currentIndex] + edge.getDistance();
+
+                    if (newDistance < distance[neighborIndex]) {
+                        distance[neighborIndex] = newDistance;
+                        priorityQueue.add(neighbor);
+
+                        // Armazena informações do caminho mais curto
+                        shortestPaths.add(new ShortestPath(sourceVertex, neighbor, newDistance));
+                    }
+                }
+            }
+        }
+
+        return shortestPaths;
+    }
 }

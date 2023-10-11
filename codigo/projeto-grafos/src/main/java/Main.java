@@ -9,6 +9,7 @@ import java.util.Map;
 import entities.Edge;
 import entities.Graph;
 import entities.Route;
+import entities.ShortestPath;
 import entities.Vertex;
 
 public class Main {
@@ -24,6 +25,7 @@ public class Main {
         /*III - Cria  e preenche arestas*/
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
+            
             String line;
 
             while ((line = br.readLine()) != null) {
@@ -67,7 +69,17 @@ public class Main {
         System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
         List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(1));
         unreachableTowns.forEach((vertex) -> System.out.printf(vertex.getCityName() + "\n"));
-        System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
-        allRoutes.forEach(System.out::println);
+         System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
+         allRoutes.forEach(System.out::println);
+
+        System.out.println("\nLetra D - Menores distâncias possíveis a partir de determinada cidade: (Ex.: Cidade do Cabo)");
+        List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(0));
+        shortestPathList.forEach(vertice -> {
+            System.out.println();
+            System.out.println("Origem " + vertice.getSourceVertex().getCityName());
+            System.out.println("Destino " + vertice.getDestinationVertex().getCityName());
+            System.out.println("Distância " + vertice.getDistance());
+            System.out.println();
+        });
     }
 }
