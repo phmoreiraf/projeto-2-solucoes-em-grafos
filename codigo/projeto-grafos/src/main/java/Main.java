@@ -1,3 +1,5 @@
+import entities.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -5,12 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import entities.Edge;
-import entities.Graph;
-import entities.Route;
-import entities.ShortestPath;
-import entities.Vertex;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,7 +21,6 @@ public class Main {
         /*III - Cria  e preenche arestas*/
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
-            
             String line;
 
             while ((line = br.readLine()) != null) {
@@ -57,29 +52,27 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         Graph graph = new Graph(vertices, edges);
         List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(0));
 
-        /*todo: remover a propria cidade da matriz de adjacencia i == j*/
-        graph.printAdjacencyMatrix();
-
         System.out.println("\nLetra A - Existe estrada de qualquer cidade para qualquer cidade?");
         System.out.println(graph.isConnected() ? "Sim" : "Não");
+
         System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
-        List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(1));
+        List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(2));
         unreachableTowns.forEach((vertex) -> System.out.printf(vertex.getCityName() + "\n"));
-         System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
-         allRoutes.forEach(System.out::println);
+
+        System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
+        allRoutes.forEach(System.out::println);
 
         System.out.println("\nLetra D - Menores distâncias possíveis a partir de determinada cidade: (Ex.: Cidade do Cabo)");
         List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(0));
-        shortestPathList.forEach(vertice -> {
+        shortestPathList.forEach(vertex -> {
             System.out.println();
-            System.out.println("Origem " + vertice.getSourceVertex().getCityName());
-            System.out.println("Destino " + vertice.getDestinationVertex().getCityName());
-            System.out.println("Distância " + vertice.getDistance());
-            System.out.println();
+            System.out.println("Origem " + vertex.getSourceVertex().getCityName());
+            System.out.println("Destino " + vertex.getDestinationVertex().getCityName());
+            System.out.println("Distância " + vertex.getDistance());
         });
     }
 }

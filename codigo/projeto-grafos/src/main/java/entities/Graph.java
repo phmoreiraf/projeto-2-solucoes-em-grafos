@@ -119,9 +119,11 @@ public class Graph {
         List<Vertex> unreachableVertices = new ArrayList<>();
 
         for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
-            if (!vertices.get(i).equals(sourceVertex)) {
-                if (adjacencyMatrix[initialPosition][i] == 0) {
-                    unreachableVertices.add(vertices.get(i));
+            if (!(initialPosition == i)) {
+                if (!vertices.get(i).equals(sourceVertex)) {
+                    if (adjacencyMatrix[initialPosition][i] == 0) {
+                        unreachableVertices.add(vertices.get(i));
+                    }
                 }
             }
         }
@@ -195,7 +197,7 @@ public class Graph {
     /**
      * Encontra os caminhos mais curtos de um vértice de origem para todos os outros vértices usando o algoritmo de Dijkstra.
      * Questão (d)
-     * 
+     *
      * @param sourceVertex Vértice de origem para qual encontrar o menor caminho.
      * @return Lista de objetos ShortestPath com informações.
      */
@@ -238,7 +240,6 @@ public class Graph {
                 }
             }
         }
-
         return shortestPaths;
     }
 }
