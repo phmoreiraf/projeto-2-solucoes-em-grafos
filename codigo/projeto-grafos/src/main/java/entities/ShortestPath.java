@@ -7,10 +7,9 @@ public class ShortestPath {
     private final int distance;
 
     /**
-     *
-     * @param sourceVertex vertice de referencia
+     * @param sourceVertex      vertice de referencia
      * @param destinationVertex vertice de destino
-     * @param distance distancia da aresta
+     * @param distance          distancia da aresta
      */
     public ShortestPath(Vertex sourceVertex, Vertex destinationVertex, int distance) {
         this.sourceVertex = sourceVertex;
