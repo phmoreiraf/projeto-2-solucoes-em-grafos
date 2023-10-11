@@ -98,10 +98,8 @@ public class Graph {
                     }
                 }
             }
-
-            if (visited.size() != allVertices.size()) {
+            if (visited.size() != allVertices.size())
                 return false;
-            }
         }
         return true;
     }
@@ -119,13 +117,10 @@ public class Graph {
         List<Vertex> unreachableVertices = new ArrayList<>();
 
         for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
-            if (!(initialPosition == i)) {
-                if (!vertices.get(i).equals(sourceVertex)) {
-                    if (adjacencyMatrix[initialPosition][i] == 0) {
+            if (!(initialPosition == i))
+                if (!vertices.get(i).equals(sourceVertex))
+                    if (adjacencyMatrix[initialPosition][i] == 0)
                         unreachableVertices.add(vertices.get(i));
-                    }
-                }
-            }
         }
         return unreachableVertices;
     }
@@ -143,11 +138,9 @@ public class Graph {
         List<Vertex> reachableVertices = new ArrayList<>();
 
         for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
-            if (!vertices.get(i).equals(sourceVertex)) {
-                if (adjacencyMatrix[initialPosition][i] == 1) {
+            if (!vertices.get(i).equals(sourceVertex))
+                if (adjacencyMatrix[initialPosition][i] == 1)
                     reachableVertices.add(vertices.get(i));
-                }
-            }
         }
         return reachableVertices;
     }
@@ -172,10 +165,8 @@ public class Graph {
                 DFS(i, new HashSet<>(visited), new Route(currentRoute), allRoutes);
             }
         }
-
-        if (!hasUnvisitedNeighbor) {
+        if (!hasUnvisitedNeighbor)
             allRoutes.add(currentRoute);
-        }
     }
 
     /**
@@ -207,9 +198,7 @@ public class Graph {
 
         // Inicializa a array de distância e vértices com prioridade para serem explorados.
         int[] distance = new int[numVertices];
-        for (int i = 0; i < numVertices; i++) {
-            distance[i] = Integer.MAX_VALUE;
-        }
+        Arrays.fill(distance, Integer.MAX_VALUE);
         distance[sourceVertexIndex] = 0;
 
         // Cria uma lista para armazenar informaçôes do caminho mais curto para cada vértice.
@@ -233,7 +222,6 @@ public class Graph {
                     if (newDistance < distance[neighborIndex]) {
                         distance[neighborIndex] = newDistance;
                         priorityQueue.add(neighbor);
-
                         // Armazena informações do caminho mais curto
                         shortestPaths.add(new ShortestPath(sourceVertex, neighbor, newDistance));
                     }
