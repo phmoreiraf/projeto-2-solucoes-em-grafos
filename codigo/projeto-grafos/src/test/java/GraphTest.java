@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GraphTest {
 
@@ -53,6 +54,6 @@ public class GraphTest {
     @Test
     @DisplayName("Verify if graph is connected")
     public void testIsConnected() {
-        assertEquals(true, graph.isConnected());
+        assertTrue(graph.isConnected());
     }
 }

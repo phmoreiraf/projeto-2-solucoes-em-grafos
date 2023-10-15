@@ -113,7 +113,7 @@ public class Graph {
      */
     public List<Vertex> getUnreachableVertices(Vertex sourceVertex) {
 
-        int initialPosition = sourceVertex.getId() - 1;
+        int initialPosition = sourceVertex.getId();
         List<Vertex> unreachableVertices = new ArrayList<>();
 
         for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {

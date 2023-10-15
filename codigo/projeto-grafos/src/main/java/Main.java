@@ -52,7 +52,6 @@ public class Main {
         }
 
         Graph graph = new Graph(vertices, edges);
-        List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(0));
 
         System.out.println("Selecione qual questão deseja verificar: (A, B, C, D / S para sair) ");
         Character op = scanner.nextLine().toLowerCase().charAt(0);
@@ -64,22 +63,26 @@ public class Main {
                     System.out.println(graph.isConnected() ? "Sim" : "Não");
                 }
                 case 'b' -> {
-                    System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: Cidade do Cabo)");
-                    List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(2));
+                    System.out.println("\nLetra B - Cidades não alcançadas por uma determinada cidade: (Ex.: 0)");
+                    int index = getCityIndex(vertices);
+                    List<Vertex> unreachableTowns = graph.getUnreachableVertices(vertices.get(index));
                     unreachableTowns.forEach(vertex -> System.out.printf(vertex.getCityName() + "\n"));
                 }
                 case 'c' -> {
-                    System.out.println("\nLetra C - Recomendação de visitas: (Ex.: Cidade do Cabo)");
+                    System.out.println("\nLetra C - Recomendação de visitas: (Ex.: 0)");
+                    int index = getCityIndex(vertices);
+                    List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(index));
                     allRoutes.forEach(System.out::println);
                 }
                 case 'd' -> {
-                    System.out.println("\nLetra D - Menores distâncias possíveis a partir de determinada cidade: (Ex.: Cidade do Cabo)");
-                    List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(0));
+                    System.out.println("\nLetra D - Menores distâncias possíveis a partir de determinada cidade: (Ex.: 0)");
+                    int index = getCityIndex(vertices);
+                    List<ShortestPath> shortestPathList = graph.shortestPathsFromSource(vertices.get(index));
                     shortestPathList.forEach(vertex -> {
                         System.out.println();
-                        System.out.println("Origem =>" + vertex.getSourceVertex().getCityName());
-                        System.out.println("Destino =>" + vertex.getDestinationVertex().getCityName());
-                        System.out.println("Distância =>" + vertex.getDistance());
+                        System.out.println("Origem -> " + vertex.getSourceVertex().getCityName());
+                        System.out.println("Destino -> " + vertex.getDestinationVertex().getCityName());
+                        System.out.println("Distância -> " + vertex.getDistance());
                     });
                 }
                 default -> throw new Exception("Opcao invalida");
@@ -87,5 +90,15 @@ public class Main {
             System.out.println("\nSelecione qual questão deseja verificar: ('A', 'B', 'C', 'D' / 'S' para sair) ");
             op = scanner.nextLine().toLowerCase().charAt(0);
         }
+    }
+
+    private static int getCityIndex(List<Vertex> vertices) {
+        Scanner scanner = new Scanner(System.in);
+        final int[] i = {0};
+        vertices.forEach(vertex -> {
+            System.out.println(i[0] + ". " + vertex.getCityName());
+            i[0]++;
+        });
+        return scanner.nextInt();
     }
 }
