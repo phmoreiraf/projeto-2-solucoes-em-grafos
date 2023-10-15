@@ -149,8 +149,7 @@ public class Graph {
      * Busca em profundidade
      *
      * @param initialPosition posicao inicial de busca
-     * @param visited         marcacao em cada vertice para que a busca nao
-     *                        re-visite um vertice marcado
+     * @param visited         marcacao em cada vertice para que a busca nao re-visite um vertice marcado
      * @param currentRoute    rota atual que está sendo explorada
      * @param allRoutes       lista de rotas recomendadas
      */
@@ -205,8 +204,7 @@ public class Graph {
         List<ShortestPath> shortestPaths = new ArrayList<>();
 
         // Prioriza a fila para selecionar o vértice com a menor distância.
-        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>(
-                (v1, v2) -> distance[vertices.indexOf(v1)] - distance[vertices.indexOf(v2)]);
+        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>((v1, v2) -> distance[vertices.indexOf(v1)] - distance[vertices.indexOf(v2)]);
         priorityQueue.add(sourceVertex);
 
         while (!priorityQueue.isEmpty()) {
