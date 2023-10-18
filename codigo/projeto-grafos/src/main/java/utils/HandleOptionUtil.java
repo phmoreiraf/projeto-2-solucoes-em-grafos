@@ -8,7 +8,7 @@ import entities.Vertex;
 import java.util.List;
 import java.util.Scanner;
 
-public class OptionUtil {
+public class HandleOptionUtil {
 
     /**
      * Trata as opcoes disponiveis para o usuario, cada opcao representa uma questao exigida pelo trabalho pratico

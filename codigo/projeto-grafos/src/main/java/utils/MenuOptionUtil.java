@@ -1,6 +1,6 @@
 package utils;
 
-public class MenuOptionsUtil {
+public class MenuOptionUtil {
     public static final String MENU_HEADER = "\n---";
     public static final String MENU_FOOTER = "---";
     public static final String MENU_OPTIONS =

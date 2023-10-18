@@ -1,9 +1,8 @@
 import entities.*;
 import utils.GenerateGraphUtil;
-import utils.OptionUtil;
+import utils.HandleOptionUtil;
 import java.util.*;
-
-import static utils.MenuOptionsUtil.*;
+import static utils.MenuOptionUtil.*;
 
 public class Main {
 
@@ -24,7 +23,7 @@ public class Main {
             if (op.equals("s"))
                 break;
 
-            OptionUtil.handleOption(op, graph, graph.getVertices());
+            HandleOptionUtil.handleOption(op, graph, graph.getVertices());
         }
     }
 
