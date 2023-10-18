@@ -23,6 +23,31 @@ public class Main {
         // Caminho do arquivo do grafo
         // Nos nossos testes, nao conseguimos processar o graph03.txt pois ele e extremamente pesado
         String fileName = "graphs/graph02.txt";
+        Graph graph = readGraphFromFile(fileName);
+
+        // Menu principal
+        String op;
+        while (true) {
+            System.out.println(MENU_HEADER);
+            System.out.println(MENU_OPTIONS);
+            System.out.println(MENU_FOOTER);
+            System.out.print("*Opcao: ");
+            op = scanner.nextLine().toLowerCase();
+
+            if (op.equals("s"))
+                break;
+
+            handleOption(op, graph, graph.getVertices());
+        }
+    }
+
+    /**
+     * Cria um novo grafo a partir do caminho fornecido
+     *
+     * @param fileName nome do arquivo
+     * @return novo grafo com os vertices e arestas do arquivo fornecido
+     */
+    private static Graph readGraphFromFile(String fileName) {
         List<Vertex> vertices;
         List<Edge> edges = new ArrayList<>();
         Map<String, Vertex> vertexMap = new HashMap<>();
@@ -60,24 +85,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         vertices = new ArrayList<>(vertexMap.values());
-        Graph graph = new Graph(vertices, edges);
-
-        // Menu principal
-        String op;
-        while (true) {
-            System.out.println(MENU_HEADER);
-            System.out.println(MENU_OPTIONS);
-            System.out.println(MENU_FOOTER);
-            System.out.print("*Opcao: ");
-            op = scanner.nextLine().toLowerCase();
-
-            if (op.equals("s"))
-                break;
-
-            handleOption(op, graph, vertices);
-        }
+        return new Graph(vertices, edges);
     }
 
     /**
