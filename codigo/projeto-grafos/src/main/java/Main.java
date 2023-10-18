@@ -23,7 +23,7 @@ public class Main {
         // Caminho do arquivo do grafo
         // Nos nossos testes, nao conseguimos processar o graph03.txt pois ele e extremamente pesado
         String fileName = "graphs/graph02.txt";
-        Graph graph = readGraphFromFile(fileName);
+        Graph graph = buildGraphFromFile(fileName);
 
         // Menu principal
         String op;
@@ -47,7 +47,7 @@ public class Main {
      * @param fileName nome do arquivo
      * @return novo grafo com os vertices e arestas do arquivo fornecido
      */
-    private static Graph readGraphFromFile(String fileName) {
+    private static Graph buildGraphFromFile(String fileName) {
         List<Vertex> vertices;
         List<Edge> edges = new ArrayList<>();
         Map<String, Vertex> vertexMap = new HashMap<>();
