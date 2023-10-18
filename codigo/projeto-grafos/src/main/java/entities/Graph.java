@@ -9,20 +9,35 @@ public class Graph {
     int[][] adjacencyMatrix;
 
     /**
+     * Construtor padrao do grafo
+     *
      * @param vertices vertices do grafo
      * @param edges    arestas do grafo
      */
     public Graph(List<Vertex> vertices, List<Edge> edges) {
         this.vertices = vertices;
         this.edges = edges;
+        initializeAdjacencyMatrix();
+        fillAdjacencyMatrix();
+    }
+
+    /**
+     * Inicializa a matriz de adjacencia vazia, colocando o valor de 0 em cada posicao
+     */
+    private void initializeAdjacencyMatrix() {
         this.adjacencyMatrix = new int[vertices.size()][vertices.size()];
-        /* Cria matriz de adjacencia vazia */
         for (int i = 0; i < vertices.size(); i++) {
             for (int j = 0; j < vertices.size(); j++) {
                 adjacencyMatrix[i][j] = 0;
             }
         }
-        /* Preenche matriz de adjacencia */
+    }
+
+    /**
+     * Preenche a matriz de adjacencia. Nas posicoes em que existe um caminho entre os dois vertices, ou seja,
+     * existe uma aresta entre a cidade da linha e a da coluna da matriz, e colocado o valor de 1 nessa posicao
+     */
+    private void fillAdjacencyMatrix() {
         for (Edge edge : edges) {
             int originIndex = vertices.indexOf(edge.getOrigin());
             int destinyIndex = vertices.indexOf(edge.getDestiny());
@@ -34,9 +49,6 @@ public class Graph {
         return vertices;
     }
 
-    /**
-     * @param vertices vertices do grafo
-     */
     public void setVertices(List<Vertex> vertices) {
         this.vertices = vertices;
     }
@@ -45,9 +57,6 @@ public class Graph {
         return edges;
     }
 
-    /**
-     * @param edges arestas do grafo
-     */
     public void setEdges(List<Edge> edges) {
         this.edges = edges;
     }
@@ -113,14 +122,12 @@ public class Graph {
      */
     public List<Vertex> getUnreachableVertices(Vertex sourceVertex) {
 
-        int initialPosition = sourceVertex.getId();
+        int matrixRow = this.vertices.indexOf(sourceVertex);
         List<Vertex> unreachableVertices = new ArrayList<>();
 
-        for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
-            if (!(initialPosition == i))
-                if (!vertices.get(i).equals(sourceVertex))
-                    if (adjacencyMatrix[initialPosition][i] == 0)
-                        unreachableVertices.add(vertices.get(i));
+        for (int i = 0; i < adjacencyMatrix[matrixRow].length; i++) {
+            if (!(matrixRow == i) && adjacencyMatrix[matrixRow][i] == 0)
+                unreachableVertices.add(vertices.get(i));
         }
         return unreachableVertices;
     }
@@ -134,13 +141,12 @@ public class Graph {
      */
     public List<Vertex> getReachableVertices(Vertex sourceVertex) {
 
-        int initialPosition = sourceVertex.getId() - 1;
+        int matrixRow = this.vertices.indexOf(sourceVertex);
         List<Vertex> reachableVertices = new ArrayList<>();
 
-        for (int i = 0; i < adjacencyMatrix[initialPosition].length; i++) {
-            if (!vertices.get(i).equals(sourceVertex))
-                if (adjacencyMatrix[initialPosition][i] == 1)
-                    reachableVertices.add(vertices.get(i));
+        for (int i = 0; i < adjacencyMatrix[matrixRow].length; i++) {
+            if (!(matrixRow == i) && adjacencyMatrix[matrixRow][i] == 0)
+                reachableVertices.add(vertices.get(i));
         }
         return reachableVertices;
     }
@@ -192,27 +198,25 @@ public class Graph {
      * @return Lista de objetos ShortestPath com informações.
      */
     public List<ShortestPath> shortestPathsFromSource(Vertex sourceVertex) {
+
         int sourceVertexIndex = vertices.indexOf(sourceVertex);
         int numVertices = vertices.size();
-
-        // Inicializa a array de distância e vértices com prioridade para serem explorados.
         int[] distance = new int[numVertices];
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[sourceVertexIndex] = 0;
-
-        // Cria uma lista para armazenar informaçôes do caminho mais curto para cada vértice.
         List<ShortestPath> shortestPaths = new ArrayList<>();
-
         // Prioriza a fila para selecionar o vértice com a menor distância.
         PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>((v1, v2) -> distance[vertices.indexOf(v1)] - distance[vertices.indexOf(v2)]);
         priorityQueue.add(sourceVertex);
 
         while (!priorityQueue.isEmpty()) {
+
             Vertex currentVertex = priorityQueue.poll();
             int currentIndex = vertices.indexOf(currentVertex);
 
             for (Edge edge : edges) {
                 if (edge.getOrigin().equals(currentVertex)) {
+
                     Vertex neighbor = edge.getDestiny();
                     int neighborIndex = vertices.indexOf(neighbor);
                     int newDistance = distance[currentIndex] + edge.getDistance();
