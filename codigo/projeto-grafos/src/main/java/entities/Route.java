@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class Route {
+
     private final List<Vertex> vertices;
 
     public Route() {

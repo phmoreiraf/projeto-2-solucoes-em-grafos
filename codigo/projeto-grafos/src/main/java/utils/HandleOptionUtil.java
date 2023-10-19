@@ -1,7 +1,6 @@
 package utils;
 
 import entities.Graph;
-import entities.Route;
 import entities.ShortestPath;
 import entities.Vertex;
 
@@ -81,7 +80,7 @@ public class HandleOptionUtil {
 
         int index = getCityIndex(vertices);
         Vertex vertex = vertices.get(index);
-        List<Vertex>recommendations =  graph.getReachableVertices(vertex);
+        List<Vertex> recommendations = graph.getReachableVertices(vertex);
 
         if (recommendations.isEmpty())
             System.out.println("\n" + vertices.get(index).getCityName() + " não alcança nenhuma outra cidade!");
@@ -114,12 +113,12 @@ public class HandleOptionUtil {
             System.out.println("\nMenores distâncias possíveis a partir de " + vertices.get(index).getCityName() + ": ");
             shortestPathList.forEach(vertex -> {
                 System.out.println();
-                System.out.println("Destino -> " + vertex.getDestinationVertex().getCityName());
-                System.out.println("Distância -> " + vertex.getDistance());
+                System.out.println("Destino -> " + vertex.destinationVertex().getCityName());
+                System.out.println("Distância -> " + vertex.distance());
             });
         }
     }
-    
+
     /**
      * Apresenta uma lista contendo as cidades(vertices) do grafo
      *

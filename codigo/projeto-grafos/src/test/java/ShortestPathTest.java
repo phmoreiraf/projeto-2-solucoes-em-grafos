@@ -26,19 +26,19 @@ public class ShortestPathTest {
     @Test
     @DisplayName("Método get do atributo sourceVertex")
     void getSourceVertexTest() {
-        Assertions.assertSame(sourceVertex, shortestPath.getSourceVertex());
+        Assertions.assertSame(sourceVertex, shortestPath.sourceVertex());
     }
 
     @Test
     @DisplayName("Método get do atributo destinationVertex")
     void getDestinationVertexTest() {
-        Assertions.assertSame(destinationVertex, shortestPath.getDestinationVertex());
+        Assertions.assertSame(destinationVertex, shortestPath.destinationVertex());
     }
 
     @Test
     @DisplayName("Método get do atributo distance")
     void getDistanceTest() {
-        Assertions.assertEquals(430, shortestPath.getDistance());
+        Assertions.assertEquals(430, shortestPath.distance());
     }
 
 
