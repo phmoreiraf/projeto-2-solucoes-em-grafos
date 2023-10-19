@@ -11,14 +11,15 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         /*
-         * graph01 -> cidades10.txt
-         * graph02 -> cidades10-hamiltoniano.txt
-         * graph03 -> cidades100.txt
-         * graph04 -> cidades100-hamiltoniano.txt
+         * Opcoes de grafos de teste (substituir na variavel `fileName`):
+         * graph01
+         * graph02
+         * graph03
+         * graph04
          */
 
         Scanner scanner = new Scanner(System.in);
-        String fileName = "graphs/graph03.txt";
+        String fileName = "graphs/graph01.txt";
         Graph graph = GenerateGraphUtil.buildGraphFromFile(fileName);
 
         String op;
