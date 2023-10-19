@@ -119,8 +119,7 @@ public class HandleOptionUtil {
             });
         }
     }
-
-
+    
     /**
      * Apresenta uma lista contendo as cidades(vertices) do grafo
      *
