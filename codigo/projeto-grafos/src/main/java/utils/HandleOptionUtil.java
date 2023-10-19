@@ -80,13 +80,16 @@ public class HandleOptionUtil {
         System.out.println("Selecione a cidade:");
 
         int index = getCityIndex(vertices);
-        List<Route> allRoutes = graph.visitAllRoadsAndCities(vertices.get(index));
+        Vertex vertex = vertices.get(index);
+        List<Vertex>recommendations =  graph.getReachableVertices(vertex);
 
-        if (allRoutes.size() == 1)
+        if (recommendations.isEmpty())
             System.out.println("\n" + vertices.get(index).getCityName() + " não alcança nenhuma outra cidade!");
         else {
             System.out.println("\nRecomendações de visitas a partir de " + vertices.get(index).getCityName() + ": ");
-            allRoutes.forEach(System.out::println);
+            recommendations.forEach(v -> {
+                System.out.println(vertex.getCityName() + " -> " + v.getCityName());
+            });
         }
     }
 

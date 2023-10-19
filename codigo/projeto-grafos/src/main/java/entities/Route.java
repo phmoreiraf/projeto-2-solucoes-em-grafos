@@ -5,34 +5,38 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class Route {
-	private List<Vertex> vertices;
+    private final List<Vertex> vertices;
 
-	public Route() {
+    public Route() {
+        this.vertices = new ArrayList<>();
+    }
 
-		this.vertices = new ArrayList<>();
-	}
+    public Route(Route currentRoute) {
+        this.vertices = new ArrayList<>(currentRoute.vertices);
+    }
 
-	public Route(Route currentRoute) {
+    public void addVertex(Vertex vertex) {
+        vertices.add(vertex);
+    }
 
-		this.vertices = new ArrayList<>(currentRoute.vertices);
-	}
+    public List<Vertex> getVertices() {
+        return vertices;
+    }
 
-	public void addVertex(Vertex vertex) {
+    public Vertex getLastVertex() {
+        if (!vertices.isEmpty())
+            return vertices.get(vertices.size() - 1);
+        else
+            return null;
+    }
 
-		vertices.add(vertex);
-	}
+    @Override
+    public String toString() {
+        StringJoiner joiner = new StringJoiner(" -> ");
+        for (Vertex vertex : vertices) {
+            joiner.add(vertex.getCityName());
+        }
+        return joiner.toString();
+    }
 
-
-	public List<Vertex> getVertices() {
-		return vertices;
-	}
-
-	@Override
-	public String toString() {
-		StringJoiner joiner = new StringJoiner(" -> ");
-		for (Vertex vertex : vertices) {
-			joiner.add(vertex.getCityName());
-		}
-		return joiner.toString();
-	}
 }

@@ -145,7 +145,7 @@ public class Graph {
         List<Vertex> reachableVertices = new ArrayList<>();
 
         for (int i = 0; i < adjacencyMatrix[matrixRow].length; i++) {
-            if (!(matrixRow == i) && adjacencyMatrix[matrixRow][i] == 0)
+            if (!(matrixRow == i) && adjacencyMatrix[matrixRow][i] != 0)
                 reachableVertices.add(vertices.get(i));
         }
         return reachableVertices;
@@ -159,7 +159,7 @@ public class Graph {
      * @param currentRoute    rota atual que está sendo explorada
      * @param allRoutes       lista de rotas recomendadas
      */
-    private void DFS(int initialPosition, Set<Integer> visited, Route currentRoute, List<Route> allRoutes) {
+    private void DFS(int initialPosition, List<Integer> visited, Route currentRoute, List<Route> allRoutes) {
         visited.add(initialPosition);
         currentRoute.addVertex(vertices.get(initialPosition));
 
@@ -167,7 +167,7 @@ public class Graph {
         for (int i = 0; i < vertices.size(); i++) {
             if (adjacencyMatrix[initialPosition][i] == 1 && !visited.contains(i)) {
                 hasUnvisitedNeighbor = true;
-                DFS(i, new HashSet<>(visited), new Route(currentRoute), allRoutes);
+                DFS(i, new ArrayList<>(visited), new Route(currentRoute), allRoutes);
             }
         }
         if (!hasUnvisitedNeighbor)
@@ -183,7 +183,7 @@ public class Graph {
      */
     public List<Route> visitAllRoadsAndCities(Vertex sourceVertex) {
         List<Route> allRoutes = new ArrayList<>();
-        Set<Integer> visited = new HashSet<>();
+        List<Integer> visited = new ArrayList<>();
         int sourceVertexIndex = vertices.indexOf(sourceVertex);
 
         DFS(sourceVertexIndex, visited, new Route(), allRoutes);
