@@ -1,7 +1,7 @@
 package utils;
 
 import entities.Graph;
-import entities.ShortestPath;
+import records.ShortestPath;
 import entities.Vertex;
 
 import java.util.List;

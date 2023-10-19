@@ -1,5 +1,7 @@
 package entities;
 
+import records.ShortestPath;
+
 import java.util.*;
 
 public class Graph {

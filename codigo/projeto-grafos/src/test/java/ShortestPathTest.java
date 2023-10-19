@@ -1,4 +1,4 @@
-import entities.ShortestPath;
+import records.ShortestPath;
 import entities.Vertex;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

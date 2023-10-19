@@ -1,4 +1,6 @@
-package entities;
+package records;
+
+import entities.Vertex;
 
 public record ShortestPath(Vertex sourceVertex, Vertex destinationVertex, int distance) {
 
