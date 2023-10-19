@@ -52,7 +52,7 @@ public class GraphTest {
     }
 
     @Test
-    @DisplayName("Verify if graph is connected")
+    @DisplayName("Verifica se o grafo e conexo")
     public void testIsConnected() {
         assertTrue(graph.isConnected());
     }
