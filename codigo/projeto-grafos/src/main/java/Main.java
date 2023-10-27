@@ -19,7 +19,7 @@ public class Main {
          */
 
         Scanner scanner = new Scanner(System.in);
-        String fileName = "graphs/graph01.txt";
+        String fileName = "C:\\Users\\phmcf\\OneDrive\\Documentos\\GitHub\\projeto-2-solucoes-em-grafos\\codigo\\projeto-grafos\\graphs\\graph01.txt";
         Graph graph = GenerateGraphUtil.buildGraphFromFile(fileName);
 
         String op;
